@@ -1,0 +1,1193 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>115-1 細胞生物學期中考・全選項詳解闖關遊戲</title>
+  <style>
+    :root {
+      --primary: #0284c7;
+      --primary-dark: #0369a1;
+      --primary-light: #e0f2fe;
+      --success: #16a34a;
+      --success-bg: #dcfce7;
+      --danger: #dc2626;
+      --danger-bg: #fee2e2;
+      --text-main: #0f172a;
+      --text-sub: #475569;
+      --bg-body: #f1f5f9;
+      --bg-card: #ffffff;
+      --border: #cbd5e1;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Microsoft JhengHei", sans-serif;
+      background-color: var(--bg-body);
+      color: var(--text-main);
+      line-height: 1.65;
+      padding-bottom: 60px;
+    }
+
+    header {
+      background: linear-gradient(135deg, #0f172a 0%, #0369a1 100%);
+      color: #fff;
+      padding: 22px 20px 18px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .header-inner {
+      max-width: 920px;
+      margin: 0 auto;
+    }
+
+    .title-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      font-size: 1.35rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    .stats-bar {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      font-size: 0.88rem;
+    }
+
+    .stat-pill {
+      background: rgba(255, 255, 255, 0.18);
+      backdrop-filter: blur(4px);
+      padding: 4px 12px;
+      border-radius: 999px;
+      font-weight: 600;
+    }
+
+    .progress-wrap {
+      background: rgba(255, 255, 255, 0.25);
+      height: 8px;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      background: #38bdf8;
+      height: 100%;
+      width: 0%;
+      transition: width 0.35s ease;
+    }
+
+    .container {
+      max-width: 920px;
+      margin: 20px auto;
+      padding: 0 16px;
+    }
+
+    .toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 20px;
+      background: var(--bg-card);
+      padding: 12px 16px;
+      border-radius: 12px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    }
+
+    .filter-group {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .tab-btn {
+      border: 1px solid var(--border);
+      background: #f8fafc;
+      color: var(--text-sub);
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .tab-btn:hover {
+      background: var(--primary-light);
+      color: var(--primary-dark);
+      border-color: #7dd3fc;
+    }
+
+    .tab-btn.active {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+
+    .action-group {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .action-btn {
+      border: none;
+      background: #e2e8f0;
+      color: var(--text-main);
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 0.86rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .action-btn:hover {
+      background: #cbd5e1;
+    }
+
+    .q-card {
+      background: var(--bg-card);
+      border-radius: 14px;
+      padding: 24px;
+      margin-bottom: 22px;
+      box-shadow: 0 2px 8px rgba(15, 23, 42, 0.06);
+      border: 1px solid #e2e8f0;
+    }
+
+    .q-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .q-badge {
+      background: var(--primary-light);
+      color: var(--primary-dark);
+      font-size: 0.82rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 6px;
+    }
+
+    .q-status {
+      font-size: 0.85rem;
+      font-weight: 700;
+    }
+
+    .q-title {
+      font-size: 1.08rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: #0f172a;
+    }
+
+    .options-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .opt-btn {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      width: 100%;
+      text-align: left;
+      padding: 12px 16px;
+      border: 2px solid #e2e8f0;
+      border-radius: 10px;
+      background: #fff;
+      color: var(--text-main);
+      font-size: 0.96rem;
+      line-height: 1.5;
+      cursor: pointer;
+      transition: all 0.18s ease;
+    }
+
+    .opt-btn:hover:not(:disabled) {
+      border-color: var(--primary);
+      background: var(--primary-light);
+    }
+
+    .opt-btn:disabled {
+      cursor: default;
+    }
+
+    .opt-label {
+      flex-shrink: 0;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #f1f5f9;
+      color: var(--text-sub);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+
+    .opt-btn.correct {
+      border-color: var(--success);
+      background: var(--success-bg);
+      color: #065f46;
+      font-weight: 600;
+    }
+
+    .opt-btn.correct .opt-label {
+      background: var(--success);
+      color: #fff;
+    }
+
+    .opt-btn.wrong {
+      border-color: var(--danger);
+      background: var(--danger-bg);
+      color: #991b1b;
+    }
+
+    .opt-btn.wrong .opt-label {
+      background: var(--danger);
+      color: #fff;
+    }
+
+    .exp-box {
+      display: none;
+      margin-top: 20px;
+      padding: 20px;
+      border-radius: 12px;
+      background: #f8fafc;
+      border-left: 5px solid var(--primary);
+      animation: fadeIn 0.3s ease;
+    }
+
+    .exp-box.show {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .exp-header {
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--primary-dark);
+      margin-bottom: 10px;
+    }
+
+    .stem-analysis {
+      background: #fff;
+      padding: 12px 14px;
+      border-radius: 8px;
+      border: 1px solid #e2e8f0;
+      margin-bottom: 16px;
+      font-size: 0.94rem;
+      color: #334155;
+    }
+
+    .opt-exp-title {
+      font-weight: 700;
+      font-size: 0.94rem;
+      color: #0f172a;
+      margin-bottom: 10px;
+    }
+
+    .opt-exp-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .opt-exp-item {
+      padding: 12px 14px;
+      border-radius: 8px;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      font-size: 0.92rem;
+    }
+
+    .opt-exp-item.is-correct-opt {
+      border-left: 4px solid var(--success);
+      background: #f0fdf4;
+    }
+
+    .opt-exp-item.is-wrong-opt {
+      border-left: 4px solid #94a3b8;
+    }
+
+    .opt-tag {
+      display: inline-block;
+      font-weight: 700;
+      margin-right: 6px;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 0.8rem;
+    }
+
+    .tag-correct {
+      background: var(--success);
+      color: #fff;
+    }
+
+    .tag-wrong {
+      background: #e2e8f0;
+      color: #475569;
+    }
+
+    .empty-msg {
+      text-align: center;
+      padding: 48px 20px;
+      background: #fff;
+      border-radius: 14px;
+      color: var(--text-sub);
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="title-row">
+      <h1>🧬 115-1 細胞生物學期中考・全選項詳解闖關遊戲</h1>
+      <div class="stats-bar">
+        <span class="stat-pill" id="stat-progress">已答：0 / 31</span>
+        <span class="stat-pill" id="stat-score">得分：0 分</span>
+        <span class="stat-pill" id="stat-accuracy">正確率：0%</span>
+        <span class="stat-pill" id="stat-combo">🔥 連對：0</span>
+      </div>
+    </div>
+    <div class="progress-wrap">
+      <div class="progress-fill" id="progress-bar"></div>
+    </div>
+  </div>
+</header>
+
+<div class="container">
+  <div class="toolbar">
+    <div class="filter-group" id="filter-tabs">
+      <button class="tab-btn active" onclick="setFilter('all', event)">全部題目 (31)</button>
+      <button class="tab-btn" onclick="setFilter('structure', event)">膜結構與模型 (8)</button>
+      <button class="tab-btn" onclick="setFilter('fluidity', event)">膜流動性與實驗 (8)</button>
+      <button class="tab-btn" onclick="setFilter('passive', event)">被動運輸與滲透 (8)</button>
+      <button class="tab-btn" onclick="setFilter('active', event)">主動運輸與ATPase (7)</button>
+      <button class="tab-btn" onclick="setFilter('wrong', event)">❌ 錯題本</button>
+    </div>
+    <div class="action-group">
+      <button class="action-btn" onclick="toggleAllExplanations()">📖 展開/收合全部解析</button>
+      <button class="action-btn" onclick="resetGame()">🔄 重新開始</button>
+    </div>
+  </div>
+
+  <div id="quiz-list"></div>
+</div>
+
+<script>
+const questionsData = [
+  {
+    id: 1,
+    cat: "structure",
+    code: "Q1 (膜結構研究史)",
+    question: "1. Which scientists proposed that the basic structure of the cell membrane consists of a lipid bilayer?",
+    options: [
+      "Charles Overton",
+      "Gorter and Grendel",
+      "Singer and Nicolson",
+      "J. David Robertson"
+    ],
+    answer: 1,
+    stemExp: "【題意】哪位（些）科學家首先提出細胞膜的基本結構是由「脂質雙層（lipid bilayer）」所組成？<br>【解析】1925 年 Gorter 與 Grendel 萃取紅血球的脂質並鋪展於水面上，發現脂質單層面積約為紅血球表面積的兩倍，進而提出細胞膜由「脂質雙層」構成。",
+    optExps: [
+      "【Charles Overton (1890s)】最早發現脂溶性物質較易穿透細胞膜，提出細胞膜表面具有「脂質性質（lipid nature）」，但尚未提出「雙層（bilayer）」結構。",
+      "【Gorter and Grendel (1925)】透過紅血球脂質萃取面積測量實驗（2:1 比例），首次提出細胞膜的基本結構為「脂質雙層（lipid bilayer）」。",
+      "【Singer and Nicolson (1972)】提出目前公認的「流體鑲嵌模型（Fluid mosaic model）」，闡明嵌合蛋白在流體脂質雙層中的配置。",
+      "【J. David Robertson (1950s)】利用電子顯微鏡觀察到細胞膜呈現「暗-亮-暗」三層結構（trilaminar appearance），提出「單位膜模型（Unit membrane model）」。"
+    ]
+  },
+  {
+    id: 2,
+    cat: "structure",
+    code: "Q2 (細胞膜結構模型)",
+    question: "2. What is the name of the cell membrane structural model currently widely accepted by the scientific community?",
+    options: [
+      "Unit membrane model",
+      "Protein sheet model",
+      "Fluid mosaic model",
+      "Lipid monolayer model"
+    ],
+    answer: 2,
+    stemExp: "【題意】目前科學界廣泛接受的細胞膜結構模型名稱為何？<br>【解析】由 Singer 與 Nicolson 於 1972 年提出的「流體鑲嵌模型（Fluid mosaic model）」是目前公認的標準模型。",
+    optExps: [
+      "【Unit membrane model（單位膜模型）】Robertson 提出，將所有生物膜視為厚度一致的「蛋白質-脂質-蛋白質」三明治固定結構，無法解釋膜蛋白的跨膜與流動特性。",
+      "【Protein sheet model（蛋白質片層模型）】早期錯誤假設，認為蛋白質僅像薄片般塗佈在脂質雙層外側（如 Davson-Danielli 模型）。",
+      "【Fluid mosaic model（流體鑲嵌模型）】將磷脂雙層視為具有流動性的二維流體（Fluid），而各種膜蛋白則像馬賽克（Mosaic）般鑲嵌或穿透其中，並可進行側向移動。",
+      "【Lipid monolayer model（脂質單層模型）】細胞膜為雙層（bilayer）而非單層（monolayer）；單層磷脂通常僅見於脂滴（lipid droplets）或脂蛋白（lipoproteins）表面。"
+    ]
+  },
+  {
+    id: 3,
+    cat: "structure",
+    code: "Q3 (細胞膜主要脂質)",
+    question: "3. What is the most abundant and major class of lipid component in cell membranes?",
+    options: [
+      "Phospholipid",
+      "Triglyceride",
+      "Free fatty acid",
+      "Glycosphingolipid"
+    ],
+    answer: 0,
+    stemExp: "【題意】細胞膜中含量最豐富且最主要的脂質類別為何？<br>【解析】磷脂（Phospholipids，包含磷酸甘油酯與神經鞘磷脂）兼具親水頭端與疏水尾端（雙親媒性 amphipathic），是構成生物膜最主要的脂質成分。",
+    optExps: [
+      "【Phospholipid（磷脂）】細胞膜中含量最豐富的脂質，具有雙親媒性（amphipathic），在水相環境中能自發形成穩定的脂質雙層結構。",
+      "【Triglyceride（三酸甘油酯／中性脂）】完全疏水（非極性），主要儲存在脂肪細胞的脂滴中作為能量儲存，不會構成生物膜雙層。",
+      "【Free fatty acid（游離脂肪酸）】只有單一疏水尾端，高濃度下具界面活性劑（detergent）效應，會破壞雙層膜結構，膜中含量極少。",
+      "【Glycosphingolipid（醣神經鞘脂）】屬於膜上的次要脂質成分（主要分布於外葉並參與細胞辨識與脂筏構成），總含量遠低於磷脂。"
+    ]
+  },
+  {
+    id: 4,
+    cat: "fluidity",
+    code: "Q4 (動物細胞膜固醇類)",
+    question: "4. Which major sterol component in animal cell membranes functions to stabilize membrane fluidity and maintain structural integrity?",
+    options: [
+      "Ergosterol",
+      "Phytosterol",
+      "Cholesterol",
+      "Hopanoids"
+    ],
+    answer: 2,
+    stemExp: "【題意】動物細胞膜中哪一種主要的固醇類（sterol）成分具有穩定膜流動性與維持結構完整性的功能？<br>【解析】膽固醇（Cholesterol）是動物細胞膜特有的主要固醇類，扮演「流動性緩衝劑（fluidity buffer）」的角色。",
+    optExps: [
+      "【Ergosterol（麥角固醇）】是「真菌（Fungi，如酵母菌）」與部分原生生物細胞膜中的主要固醇類，常作為抗真菌藥物（如 Amphotericin B、Azoles）的標靶。",
+      "【Phytosterol（植物固醇）】如豆固醇（stigmasterol）、谷固醇（sitosterol），是「植物細胞膜」中調節流動性的主要固醇類。",
+      "【Cholesterol（膽固醇）】是「動物細胞膜」的主要固醇類（約占膜脂質的 20-30%），高溫時限制磷脂過度移動以降低流動性，低溫時防止脂肪酸鏈緊密堆積結晶以提高流動性。",
+      "【Hopanoids（藿烷類／類固醇化合物）】存在於許多「原核生物（細菌）」細胞膜中，因細菌多缺乏合成真核固醇所需的氧氣酵素，故以結構相似的五環 Hopanoids 調節膜流動性。"
+    ]
+  },
+  {
+    id: 5,
+    cat: "passive",
+    code: "Q5 (簡單擴散特性)",
+    question: "5. Which of the following statements regarding simple diffusion is correct?",
+    options: [
+      "It requires the consumption of metabolic energy",
+      "It proceeds down the concentration gradient without the assistance of transport proteins",
+      "It exhibits saturation kinetics",
+      "It can only transport solute against the concentration gradient."
+    ],
+    answer: 1,
+    stemExp: "【題意】下列關於「簡單擴散（simple diffusion）」的敘述何者正確？<br>【解析】簡單擴散屬於被動運輸，溶質直接穿過脂質雙層，順著濃度梯度（高濃度往低濃度）移動，不需要消耗能量，也不需要運輸蛋白協助。",
+    optExps: [
+      "【需要消耗代謝能量】錯誤。簡單擴散由熱運動（熵增）驅動，屬於不耗能（ΔG < 0）的被動運輸；主動運輸才需消耗代謝能量。",
+      "【順著濃度梯度進行且不需運輸蛋白協助】正確。小分子非極性物質可直接穿越磷脂雙層順梯度擴散。",
+      "【表現出飽和動力學（saturation kinetics）】錯誤。簡單擴散速率與溶質濃度呈「線性正比（linear）」關係；需透過載體或通道蛋白的促進性擴散與主動運輸才會因結合位飽和而出現飽和動力學。",
+      "【只能逆著濃度梯度運輸溶質】錯誤。簡單擴散只能順濃度梯度（downhill）運輸；逆濃度梯度（uphill）必須靠主動運輸。"
+    ]
+  },
+  {
+    id: 6,
+    cat: "passive",
+    code: "Q6 (氣體跨膜運輸)",
+    question: "6. By which mechanism do oxygen and carbon dioxide primarily cross the erythrocyte (red blood cell) membrane?",
+    options: [
+      "Active transport",
+      "Simple diffusion",
+      "Facilitated diffusion",
+      "Endocytosis"
+    ],
+    answer: 1,
+    stemExp: "【題意】氧氣（O₂）與二氧化碳（CO₂）主要透過何種機制穿過紅血球細胞膜？<br>【解析】O₂ 與 CO₂ 屬於分子量極小、無電荷的非極性氣體分子，在脂質雙層中的溶解度與滲透率極高，可直接透過「簡單擴散」快速穿過細胞膜。",
+    optExps: [
+      "【Active transport（主動運輸）】氣體交換完全順分壓梯度（濃度梯度）進行，不消耗 ATP。",
+      "【Simple diffusion（簡單擴散）】正確。O₂、CO₂、N₂ 等小分子非極性氣體可直接穿過疏水性脂質雙層。",
+      "【Facilitated diffusion（促進性擴散）】用於極性分子（如葡萄糖、胺基酸）或帶電離子，需通道或載體蛋白協助。",
+      "【Endocytosis（胞吞作用）】用於大分子（如蛋白質、脂蛋白顆粒）或液體透過囊泡包裹進入細胞，非氣體交換機制。"
+    ]
+  },
+  {
+    id: 7,
+    cat: "passive",
+    code: "Q7 (高張溶液對動物細胞的影響)",
+    question: "7. What happens to animal cells lacking cell walls when placed in a hypertonic solution?",
+    options: [
+      "They swell and lyse",
+      "They undergo plasmolysis",
+      "They lose water and shrink/shrivel",
+      "Their volume remains unchanged"
+    ],
+    answer: 2,
+    stemExp: "【題意】缺乏細胞壁的動物細胞（如紅血球）若置於「高張溶液（hypertonic solution）」中會發生什麼事？<br>【解析】高張溶液的外界溶質濃度高於細胞內（水勢較低），水分會順水勢由細胞內向外滲透流失，導致動物細胞萎縮皺縮（shrink/shrivel，紅血球稱為 crenation）。",
+    optExps: [
+      "【They swell and lyse（膨脹並破裂／溶血）】這是動物細胞置於「低張溶液（hypotonic solution）」時吸水過多導致的現象。",
+      "【They undergo plasmolysis（發生質壁分離）】「質壁分離（plasmolysis）」是具有堅硬細胞壁的「植物或細菌細胞」在高張溶液中，原生質體失水縮離細胞壁的現象；動物細胞無細胞壁，不稱作 plasmolysis。",
+      "【They lose water and shrink/shrivel（失水並萎縮／皺縮）】正確。動物細胞在高張溶液中水分外流，體積縮小並呈現皺縮（crenation）。",
+      "【Their volume remains unchanged（體積維持不變）】這是置於「等張溶液（isotonic solution）」時水分進出速率相等的現象。"
+    ]
+  },
+  {
+    id: 8,
+    cat: "passive",
+    code: "Q8 (水通道蛋白)",
+    question: "8. What is the specific channel protein that facilitates the rapid transport of water molecules across the cell membrane called?",
+    options: [
+      "Glucose transporter 1 (GLUT1)",
+      "Proton pump",
+      "Aquaporin",
+      "Anion exchange protein"
+    ],
+    answer: 2,
+    stemExp: "【題意】促進水分子快速通過細胞膜的專一性通道蛋白稱為什麼？<br>【解析】水通道蛋白（Aquaporin, AQP，由 Peter Agre 發現並獲諾貝爾獎）是專門讓水分子以每秒數十億個分子的高速進行促進性擴散（滲透）的四聚體跨膜通道蛋白。",
+    optExps: [
+      "【Glucose transporter 1 (GLUT1)】紅血球膜上的「葡萄糖轉運載體蛋白（uniporter）」，負責促進性擴散運輸葡萄糖而非水分子。",
+      "【Proton pump（質子幫浦）】消耗 ATP 主動運輸氫離子（H⁺）以建立酸鹼梯度（如 V-type 或 P-type H⁺-ATPase）。",
+      "【Aquaporin（水通道蛋白）】正確。專一性形成親水性孔道供水分子快速通過（同時阻擋 H₃O⁺ 質子通過），常見於腎小管上皮細胞與紅血球。",
+      "【Anion exchange protein（陰離子交換蛋白）】如紅血球的 Band 3 蛋白，負責 Cl⁻ 與 HCO₃⁻ 的反向運輸（antiport）。"
+    ]
+  },
+  {
+    id: 9,
+    cat: "passive",
+    code: "Q9 (被動運輸共同特徵)",
+    question: "9. Which of the following is a common feature shared by both facilitated diffusion and simple diffusion?",
+    options: [
+      "Both require the consumption of metabolic energy (ATP)",
+      "Both require specific protein as carrier",
+      "Both proceed downhill along the electrochemical/concentration gradient",
+      "Both exhibit saturation kinetics and competitive inhibition."
+    ],
+    answer: 2,
+    stemExp: "【題意】下列何者是「促進性擴散（facilitated diffusion）」與「簡單擴散（simple diffusion）」共同具有的特徵？<br>【解析】兩者皆屬於「被動運輸（passive transport）」，皆為熱力學自發過程（ΔG < 0），皆順著濃度梯度或電化學梯度（downhill）進行，且都不消耗 ATP。",
+    optExps: [
+      "【兩者皆需消耗代謝能量 ATP】錯誤。兩者皆屬於被動運輸，完全不需消耗 ATP。",
+      "【兩者皆需專一性蛋白質作為載體】錯誤。只有促進性擴散需要轉運蛋白（載體或通道），簡單擴散直接穿透脂質雙層。",
+      "【兩者皆順著電化學／濃度梯度向下（downhill）進行】正確。順梯度擴散是所有被動運輸的核心共同點。",
+      "【兩者皆表現出飽和動力學與競爭性抑制】錯誤。只有需要蛋白質結合位的「促進性擴散」才會出現飽和動力學（Vmax）與競爭性抑制；簡單擴散呈線性關係。"
+    ]
+  },
+  {
+    id: 10,
+    cat: "active",
+    code: "Q10 (鈉鉀幫浦運輸類型)",
+    question: "10. To which type of transport does the Na⁺/K⁺ ATPase (sodium-potassium pump) on animal cell membranes belong?",
+    options: [
+      "Simple diffusion",
+      "Facilitated diffusion",
+      "Direct active transport",
+      "Indirect active transport"
+    ],
+    answer: 2,
+    stemExp: "【題意】動物細胞膜上的鈉鉀幫浦（Na⁺/K⁺ ATPase）屬於哪一種類型的運輸？<br>【解析】鈉鉀幫浦直接水解一分子 ATP，將 3 個 Na⁺ 打出細胞外、2 個 K⁺ 打入細胞內（皆逆濃度梯度），屬於「初級／直接主動運輸（Primary / Direct active transport）」。",
+    optExps: [
+      "【Simple diffusion（簡單擴散）】順梯度、不耗能、不需蛋白，帶電離子無法直接穿過疏水脂質層。",
+      "【Facilitated diffusion（促進性擴散）】順梯度、不耗能，如離子通道（ion channels）。",
+      "【Direct active transport（直接／初級主動運輸）】正確。運輸蛋白本身具有 ATP 酶活性，直接耦合 ATP 水解釋放的化學能來進行逆梯度運輸。",
+      "【Indirect active transport（間接／次級主動運輸）】本身不直接水解 ATP，而是利用初級主動運輸建立的離子電化學梯度（如 Na⁺ 或 H⁺ 順梯度流入的能量）來帶動另一物質逆梯度運輸（如 SGLT1）。"
+    ]
+  },
+  {
+    id: 11,
+    cat: "structure",
+    code: "Q11 (跨膜蛋白定義)",
+    question: "11. What are membrane proteins called if they span the lipid bilayer and extend out on both sides of the membrane?",
+    options: [
+      "Peripheral membrane proteins",
+      "Transmembrane proteins",
+      "Lipid-anchored proteins",
+      "Integral monotopic proteins"
+    ],
+    answer: 1,
+    stemExp: "【題意】若膜蛋白貫穿整個脂質雙層，且兩端分別延伸出細胞膜的內外兩側，這類蛋白質稱為什麼？<br>【解析】貫穿雙層膜的嵌合蛋白稱為「跨膜蛋白（Transmembrane proteins）」，具有疏水性的穿膜區段（多為 α-helix 或 β-barrel）以及兩側的親水結構域。",
+    optExps: [
+      "【Peripheral membrane proteins（周邊膜蛋白）】完全不進入疏水脂質雙層內部，僅透過非共價靜電作用力或氫鍵附著於膜表面（或與跨膜蛋白結合）。",
+      "【Transmembrane proteins（跨膜蛋白）】正確。屬於完全貫穿脂質雙層（span the bilayer）並暴露於膜兩側的嵌合膜蛋白（integral proteins）。",
+      "【Lipid-anchored proteins（脂質錨定蛋白）】蛋白質本體位於膜外側或內側水相，透過共價鍵連接在膜內的脂質分子（如 GPI 錨定或脂肪酸鏈）上。",
+      "【Integral monotopic proteins（單側嵌合蛋白）】雖然深入疏水核心，但僅嵌入脂質雙層的「其中一葉（monolayer）」，並未完全貫穿到另一側。"
+    ]
+  },
+  {
+    id: 12,
+    cat: "structure",
+    code: "Q12 (周邊膜蛋白分離條件)",
+    question: "12. Which class of proteins can typically be easily detached from the cell membrane by altering the solution's pH or ionic strength?",
+    options: [
+      "Peripheral membrane proteins",
+      "Multipass transmembrane proteins",
+      "Integral membrane proteins",
+      "GPI-anchored proteins"
+    ],
+    answer: 0,
+    stemExp: "【題意】哪一類膜蛋白通常只需改變溶液的 pH 值或離子強度（如高鹽溶液），就能輕易從細胞膜上分離下來？<br>【解析】周邊膜蛋白（Peripheral membrane proteins）主要靠靜電引力（離子鍵）與氫鍵結合於膜表面，因此改變 pH 或加入高濃度鹽類（高離子強度）即可打斷這些非共價鍵將其洗脫，無須使用界面活性劑（detergent）破壞雙層膜。",
+    optExps: [
+      "【Peripheral membrane proteins（周邊膜蛋白）】正確。靠極性／靜電作用力附著在膜表面，用高鹽（high ionic strength）、改變 pH 或螯合劑（EDTA）即可輕易分離。",
+      "【Multipass transmembrane proteins（多穿跨膜蛋白）】深入疏水性脂質核心，必須使用界面活性劑（如 SDS、Triton X-100）瓦解脂質雙層才能萃取出來。",
+      "【Integral membrane proteins（嵌合／內在膜蛋白）】包含跨膜蛋白，與疏水核心緊密結合，無法單靠改變鹽濃度或 pH 洗脫。",
+      "【GPI-anchored proteins（GPI 糖磷脂醯肌醇錨定蛋白）】以共價鍵連接於外葉脂質，需使用專一性酵素「磷脂酶 C（Phospholipase C, PI-PLC）」切割或界面活性劑才能釋放。"
+    ]
+  },
+  {
+    id: 13,
+    cat: "fluidity",
+    code: "Q13 (磷脂分子的自旋與側向擴散)",
+    question: "13. What is the characteristic movement of phospholipid molecules undergoing rotation along their long axis and lateral diffusion within a single monolayer?",
+    options: [
+      "Extremely rare and requiring catalytic enzymes",
+      "Rapid and random",
+      "Observable only upon cell death",
+      "Requiring a large input of ATP"
+    ],
+    answer: 1,
+    stemExp: "【題意】磷脂分子沿長軸「自旋（rotation）」以及在同一單層（monolayer）內進行「側向擴散（lateral diffusion）」的運動特性為何？<br>【解析】在同一單層內，磷脂分子的親水頭端維持在水相、疏水尾端維持在疏水核心，熱力學上完全無障礙，因此自旋與側向擴散是「極為快速且隨機自發（rapid and random，每秒交換位置約 10⁷ 次）」的熱運動。",
+    optExps: [
+      "【極為罕見且需要催化酵素】這是「跨膜翻轉（transverse flip-flop）」的特徵，而非側向擴散。",
+      "【Rapid and random（快速且隨機）】正確。由熱能驅動，不需酵素也不耗能，磷脂分子可在數秒內側向擴散繞行整個細菌細胞一圈。",
+      "【只有在細胞死亡時才能觀察到】錯誤。活細胞膜在生理溫度下隨時處於高度動態的流體狀態。",
+      "【需要大量 ATP 輸入】錯誤。自旋與側向擴散純粹是分子的布朗熱運動（thermal motion），完全不消耗 ATP。"
+    ]
+  },
+  {
+    id: 14,
+    cat: "fluidity",
+    code: "Q14 (磷脂分子的跨膜翻轉 Flip-flop)",
+    question: "14. What is the characteristic feature of phospholipid transverse diffusion (flip-flop) from one monolayer to the other in a lipid bilayer?",
+    options: [
+      "Occurring spontaneously millions of times per second",
+      "Relatively extremely rare, usually requiring flippase enzymes to catalyze",
+      "The most common form of simple diffusion",
+      "Occurring only in dead cells or membrane-less structures"
+    ],
+    answer: 1,
+    stemExp: "【題意】磷脂分子從雙層膜的其中一葉翻轉到另一葉的「橫向跨膜擴散（transverse diffusion / flip-flop）」具有何種特徵？<br>【解析】因為磷脂的極性親水頭端若要穿越雙層膜中央的疏水核心，在熱力學上極為不利（活化能極高），故自發性 flip-flop 極為罕見（數小時至數天僅發生一次），細胞內必須仰賴翻轉酶（flippase / floppase / scramblase）催化才能快速進行。",
+    optExps: [
+      "【每秒自發性發生數百萬次】這是同一葉內的「側向擴散（lateral diffusion）」速率，而非跨膜 flip-flop。",
+      "【Relatively extremely rare, usually requiring flippase enzymes to catalyze（自發發生極為罕見，通常需翻轉酶催化）】正確。Flippase（P-type ATPase）或 Floppase（ABC transporter）可利用 ATP 協助特定磷脂跨膜翻轉以維持膜的不對稱性。",
+      "【最常見的簡單擴散形式】錯誤。Flip-flop 是膜脂質本身的跨葉移動，且因能量障礙極高而最難自發進行。",
+      "【只發生在死細胞或無膜結構】錯誤。活細胞在內質網合成新膜或進行細胞凋亡（暴露 PS）時，皆會透過酵素催化進行翻轉。"
+    ]
+  },
+  {
+    id: 15,
+    cat: "fluidity",
+    code: "Q15 (脂肪酸飽和度與相轉移溫度 Tm)",
+    question: "15. Compared to membranes rich in unsaturated fatty acids, what is the characteristic transition temperature (Tm) of cell membranes rich in saturated fatty acids during temperature change?",
+    options: [
+      "Is lower",
+      "Is higher",
+      "Remains permanently at zero degrees",
+      "Is unaffected"
+    ],
+    answer: 1,
+    stemExp: "【題意】與富含不飽和脂肪酸的細胞膜相比，富含「飽和脂肪酸（saturated fatty acids）」的細胞膜其相轉移溫度（transition temperature, Tm，即從凝膠態轉變為流體態所需的熔點溫度）特徵為何？<br>【解析】飽和脂肪酸碳鏈呈筆直狀，彼此能緊密排列（凡德瓦力強），不易流動，需要「更高（is higher）」的溫度才能使其融化成流體狀態。",
+    optExps: [
+      "【Is lower（較低）】這是富含「順式不飽和脂肪酸（cis-unsaturated fatty acids）」的特徵，因為雙鍵造成的彎折（kinks）阻礙分子緊密堆積，在較低溫度即可維持流體態。",
+      "【Is higher（較高）】正確。飽和脂肪酸無雙鍵彎折，碳氫鏈筆直且緊密排列，分子間凡德瓦引力強，因此熔點（相轉移溫度 Tm）較高。",
+      "【永久維持在零度】錯誤。相轉移溫度會隨脂肪酸鏈長與飽和度而改變。",
+      "【不受影響】錯誤。脂肪酸的飽和度是決定生物膜 Tm 值最關鍵的因素之一。"
+    ]
+  },
+  {
+    id: 16,
+    cat: "passive",
+    code: "Q16 (GLUT1 運輸動力學曲線)",
+    question: "16. When erythrocyte glucose transporter 1 (GLUT1) performs facilitated diffusion, what shape does the rate of transport vs. glucose concentration curve exhibit?",
+    options: [
+      "Linear",
+      "Hyperbolic (showing saturation kinetics)",
+      "Parabolic",
+      "Stepwise"
+    ],
+    answer: 1,
+    stemExp: "【題意】當紅血球葡萄糖轉運蛋白 1（GLUT1）進行促進性擴散時，其「運輸速率對葡萄糖濃度」的關係曲線呈現什麼形狀？<br>【解析】由於細胞膜上 GLUT1 載體蛋白的數量有限，當胞外葡萄糖濃度高到使所有轉運蛋白結合位皆被佔滿時，運輸速率達到最大值（Vmax），曲線呈現類似 Michaelis-Menten 酵素動力學的「雙曲線型（Hyperbolic，展現飽和動力學 saturation kinetics）」。",
+    optExps: [
+      "【Linear（線性直線）】這是「簡單擴散（simple diffusion）」的動力學曲線，運輸速率隨濃度無上限成正比增加。",
+      "【Hyperbolic (showing saturation kinetics)（雙曲線，表現出飽和動力學）】正確。載體蛋白與受質結合具有專一性與有限結合位，故呈現達到 Vmax 平台的雙曲線。",
+      "【Parabolic（拋物線）】不符合生物膜轉運蛋白的動力學特徵。",
+      "【Stepwise（階梯狀）】不符合單一載體蛋白促進性擴散的連續濃度反應曲線。"
+    ]
+  },
+  {
+    id: 17,
+    cat: "structure",
+    code: "Q17 (糖萼 Glycocalyx)",
+    question: "17. What is the carbohydrate-rich coating on the outer surface of animal plasma membranes, composed of oligosaccharide chains of glycoproteins and glycolipids, called?",
+    options: [
+      "Peptidoglycan",
+      "Glycocalyx",
+      "Cellulose cell wall",
+      "Chitin layer"
+    ],
+    answer: 1,
+    stemExp: "【題意】動物細胞膜外表面由醣蛋白（glycoproteins）與醣脂（glycolipids）的寡醣鏈所構成、富含碳水化合物的披覆層稱為什麼？<br>【解析】膜上的醣類皆分布於非細胞質側（細胞膜外表面），形成一層水合的糖衣保護層，稱為「糖萼（Glycocalyx，又稱細胞外衣 cell coat）」，參與細胞辨識、免疫反應與保護細胞免受機械或化學損傷。",
+    optExps: [
+      "【Peptidoglycan（肽聚醣）】是「細菌（真細菌）細胞壁」的主要成分，由 N-乙醯葡萄糖胺（NAG）與 N-乙醯胞壁酸（NAM）交聯而成。",
+      "【Glycocalyx（糖萼／糖衣）】正確。動物細胞質膜外表面由膜蛋白與膜脂質共價連接的寡醣鏈與蛋白聚醣所構成的碳水化合物富集層。",
+      "【Cellulose cell wall（纖維素細胞壁）】是「植物與部分藻類」細胞壁的主要多醣結構，動物細胞不具細胞壁。",
+      "【Chitin layer（幾丁質層）】由 N-乙醯葡萄糖胺聚合而成，是「真菌細胞壁」與「節肢動物外骨骼」的主要成分。"
+    ]
+  },
+  {
+    id: 18,
+    cat: "passive",
+    code: "Q18 (細胞壁與低張溶液)",
+    question: "18. Plant and bacterial cells possess cell walls, which protect them from bursting due to excessive water uptake in which environment?",
+    options: [
+      "Hypertonic solution",
+      "Hypotonic solution",
+      "Isotonic solution",
+      "Dehydrated / dry environment"
+    ],
+    answer: 1,
+    stemExp: "【題意】植物與細菌細胞具有細胞壁，這能保護它們在哪一種環境中不會因為過度吸水而脹破（bursting / lysis）？<br>【解析】在「低張溶液（Hypotonic solution）」中，外界水勢高於細胞內，水分大量滲透進入細胞；此時堅韌的細胞壁會產生向內的「膨壓（turgor pressure）」抵消吸水力，防止細胞脹破。",
+    optExps: [
+      "【Hypertonic solution（高張溶液）】細胞在高張溶液中會「失水」並發生質壁分離（plasmolysis），不會吸水脹破。",
+      "【Hypotonic solution（低張溶液）】正確。植物與細菌通常生活在低張的水生或土壤環境中，細胞壁能建立膨壓（turgor pressure）防止過度吸水爆裂。",
+      "【Isotonic solution（等張溶液）】水分進出達到動態平衡，沒有過度吸水的脹破風險（此時植物細胞會呈現軟塌 flaccid）。",
+      "【Dehydrated / dry environment（脫水／乾燥環境）】細胞面臨的是失水乾涸而非過度吸水。"
+    ]
+  },
+  {
+    id: 19,
+    cat: "passive",
+    code: "Q19 (單向運輸 Uniport)",
+    question: "19. What is the transport mode called when a carrier protein specifically transports only one solute across the membrane at a time?",
+    options: [
+      "Uniport",
+      "Symport",
+      "Antiport",
+      "Exocytosis"
+    ],
+    answer: 0,
+    stemExp: "【題意】當一個載體蛋白每次專一性地只將「單一種溶質（one solute）」跨膜運輸時，這種運輸模式稱為什麼？<br>【解析】只運輸單一種分子朝單一方向移動的載體模式稱為「單向運輸（Uniport）」，例如 GLUT1 單獨運輸葡萄糖。",
+    optExps: [
+      "【Uniport（單向運輸）】正確。載體蛋白一次只結合並跨膜轉運單一種溶質分子（不耦合其他離子）。",
+      "【Symport（同向共同運輸）】屬於共同運輸（cotransport），載體同時將兩種不同溶質朝「相同方向」跨膜運輸（如 SGLT1 同時將 Na⁺ 與葡萄糖運入細胞）。",
+      "【Antiport（反向共同運輸／交換運輸）】屬於共同運輸（cotransport），載體將兩種不同溶質朝「相反方向」跨膜交換（如 Na⁺/K⁺ pump 或 Band 3 交換 Cl⁻ 與 HCO₃⁻）。",
+      "【Exocytosis（胞吐作用）】透過囊泡與質膜融合將大分子分泌至細胞外的作用，不屬於單一載體蛋白（carrier protein）的跨膜轉運模式。"
+    ]
+  },
+  {
+    id: 20,
+    cat: "passive",
+    code: "Q20 (帶電離子與電化學梯度)",
+    question: "20. When charged ions (such as Na⁺, K⁺, Cl⁻) move across the cell membrane, besides the concentration gradient, what other driving force influences their movement?",
+    options: [
+      "Membrane potential / electrical gradient",
+      "Ambient light intensity",
+      "Atmospheric pressure changes",
+      "Lipid bilayer thickness"
+    ],
+    answer: 0,
+    stemExp: "【題意】當帶電離子（如 Na⁺、K⁺）跨膜移動時，除了濃度梯度（化學梯度）之外，還有哪一種驅動力會影響它們的移動？<br>【解析】帶電離子同時受到「濃度梯度（chemical gradient）」與跨膜電位差即「膜電位／電梯度（Membrane potential / electrical gradient）」的雙重影響，兩者合稱為「電化學梯度（electrochemical gradient）」。",
+    optExps: [
+      "【Membrane potential / electrical gradient（膜電位／電梯度）】正確。一般細胞膜內側帶負電（約 -60 至 -70 mV）、外側帶正電，因此陽離子（如 Na⁺）除了受濃度梯度驅動外，也會被膜內的負電位吸引。",
+      "【Ambient light intensity（環境光照強度）】除非是特殊的光驅動通道（如視紫質通道 channelrhodopsin），否則一般離子跨膜驅動力與環境光無直接關係。",
+      "【Atmospheric pressure changes（大氣壓力變化）】不構成細胞膜兩側離子移動的熱力學驅動力。",
+      "【Lipid bilayer thickness（脂質雙層厚度）】影響膜的物理屏障性質與膜蛋白配適，但不是驅動離子跨膜移動的热力學梯度（driving force）。"
+    ]
+  },
+  {
+    id: 21,
+    cat: "fluidity",
+    code: "Q21 (增加膜流動性並降低 Tm 的修飾)",
+    question: "21. Which of the following membrane lipid modifications would significantly INCREASE membrane fluidity and LOWER its phase transition temperature?",
+    options: [
+      "Increasing the length of fatty acid hydrocarbon chains",
+      "Increasing the number of cis-unsaturated double bonds",
+      "Removing cholesterol at high ambient temperature",
+      "Replacing unsaturated fatty acids with saturated fatty acids"
+    ],
+    answer: 1,
+    stemExp: "【題意】下列哪一種膜脂質的改變會顯著「增加（INCREASE）膜的流動性」並「降低（LOWER）其相轉移溫度（Tm）」？<br>【解析】增加「順式不飽和雙鍵（cis-unsaturated double bonds）」的數量，會在脂肪酸碳鏈中引入彎折（kinks），破壞分子間的緊密堆積、減弱凡德瓦引力，使膜更具流動性且熔點（Tm）顯著下降。",
+    optExps: [
+      "【增加脂肪酸碳氫鏈的長度】鏈長越長，疏水尾端之間的凡德瓦交互作用越強，會「降低流動性」並「提高 Tm」。",
+      "【Increasing the number of cis-unsaturated double bonds（增加順式不飽和雙鍵數量）】正確。順式雙鍵產生約 30 度的結構彎折，阻礙磷脂緊密排列，是提升流動性並降低 Tm 最有效的方式。",
+      "【在高溫環境移除膽固醇】雖然高溫下膽固醇會限制流動性，但調節膜本身的「相轉移溫度（Tm 熔點降低）」最核心且全年齡溫度通用的脂質共價修飾是增加順式不飽和雙鍵（膽固醇主要是消除陡峭的相轉移而非單純降低 Tm）。",
+      "【將不飽和脂肪酸替換為飽和脂肪酸】會使碳鏈緊密排列，導致流動性「降低」、相轉移溫度 Tm「升高」。"
+    ]
+  },
+  {
+    id: 22,
+    cat: "structure",
+    code: "Q22 (親疏水性圖譜 Hydropathy plot)",
+    question: "22. In a hydropathy plot analysis of an unknown integral membrane protein, if there are four distinct hydrophobic peaks exceeding the threshold value, what structural feature does this protein most likely possess?",
+    options: [
+      "Four peripheral membrane binding domains",
+      "Four transmembrane alpha-helical segments",
+      "A single beta-barrel pore",
+      "Four lipid-anchored glycosylation sites"
+    ],
+    answer: 1,
+    stemExp: "【題意】在未知嵌合膜蛋白的「親疏水性分析圖（hydropathy plot）」中，若出現 4 個超過閾值的明顯疏水性波峰（hydrophobic peaks，每個約 20-25 個疏水胺基酸長），該蛋白質最可能具有何種結構特徵？<br>【解析】Hydropathy plot 用來預測跨膜區段（transmembrane segments）。每一個正值（疏水性高、自由能 ΔG > 0）且長度約 20 個胺基酸的波峰，即代表一段穿透脂質雙層的「跨膜 α-螺旋區段（transmembrane α-helical segment）」。4 個波峰代表具有 4 段跨膜 α-螺旋。",
+    optExps: [
+      "【四個周邊膜結合結構域】周邊膜蛋白結合區富含親水性／帶電胺基酸，不會在 hydropathy plot 上形成超過跨膜閾值的連續疏水波峰。",
+      "【Four transmembrane alpha-helical segments（四個跨膜 α-螺旋區段）】正確。一段約 20 個非極性胺基酸構成的 α-螺旋剛好可跨越約 3 nm 厚的疏水脂質核心，4 個疏水高峰即對應 4 次穿膜的 α-螺旋（multipass transmembrane protein）。",
+      "【單一 β-桶狀孔道（beta-barrel pore）】β-barrel 的 β-摺板每間隔一個胺基酸就朝向親水孔道內部（極性與非極性交替排列），因此在標準 hydropathy plot 上不會呈現出明顯寬大的高疏水性波峰。",
+      "【四個脂質錨定醣基化位點】醣基化位點位於親水性的胞外區，不會形成跨膜疏水波峰。"
+    ]
+  },
+  {
+    id: 23,
+    cat: "passive",
+    code: "Q23 (紅血球維持胞內低游離葡萄糖濃度的機制)",
+    question: "23. During facilitated diffusion of glucose via GLUT1 in human erythrocytes, how do red blood cells maintain a low intracellular concentration of free glucose to continuously drive glucose inwardly?",
+    options: [
+      "By rapidly exporting glucose via an active transport pump",
+      "By immediately phosphorylating glucose into glucose-6-phosphate using hexokinase",
+      "By converting glucose into glycogen inside the erythrocyte",
+      "By binding glucose to intracellular hemoglobin"
+    ],
+    answer: 1,
+    stemExp: "【題意】在人類紅血球透過 GLUT1 進行葡萄糖促進性擴散時，紅血球如何維持細胞內極低的「游離葡萄糖（free glucose）」濃度，以持續驅動葡萄糖順濃度梯度流入細胞？<br>【解析】葡萄糖一進入紅血球，糖解作用的第一個酵素「己糖激酶（Hexokinase）」會立刻消耗 ATP 將其磷酸化為「葡萄糖-6-磷酸（Glucose-6-phosphate, G6P）」。G6P 無法被 GLUT1 辨識也帶負電無法出膜，且立即降低了胞內「游離葡萄糖」濃度，維持外高內低的濃度梯度。",
+    optExps: [
+      "【透過主動運輸幫浦快速把葡萄糖打出細胞】這與細胞吸收利用葡萄糖的目的完全相反。",
+      "【By immediately phosphorylating glucose into glucose-6-phosphate using hexokinase（利用己糖激酶立即將葡萄糖磷酸化為 G6P）】正確。將 glucose 轉為 G6P 既能把葡萄糖鎖在細胞內（trapping），又能維持極低的胞內 free glucose 濃度。",
+      "【在紅血球內將葡萄糖轉化為肝醣儲存】成熟紅血球沒有細胞核與粒線體，也不會合成儲存肝醣（肝醣主要儲存在肝臟與肌肉）。",
+      "【將葡萄糖結合到胞內的血紅素上】葡萄糖若非酵素性結合於血紅素（形成糖化血色素 HbA1c）是慢性高血糖的緩慢反應，並非維持日常葡萄糖濃度梯度的生理機制。"
+    ]
+  },
+  {
+    id: 24,
+    cat: "passive",
+    code: "Q24 (紅血球 Band 3 陰離子交換蛋白) ★原卷缺選項已補齊",
+    question: "24. The anion exchange protein (Band 3) in the erythrocyte membrane acts as an antiporter carrier. Which two ions does it exchange in a 1:1 ratio across the membrane? (※註：原考卷印 No ABCD，此處為您補齊四選項供練習)",
+    options: [
+      "Na⁺ and K⁺",
+      "Cl⁻ (chloride ion) and HCO₃⁻ (bicarbonate ion)",
+      "Ca²⁺ and Mg²⁺",
+      "H⁺ and OH⁻"
+    ],
+    answer: 1,
+    stemExp: "【題意】紅血球膜上的陰離子交換蛋白（Band 3 蛋白）作為反向運輸載體（antiporter），它以 1:1 的比例跨膜交換哪兩種離子？<br>【解析】Band 3（Anion exchanger 1, AE1）負責著名的「氯轉移（Chloride shift / Hamburger phenomenon）」，以 1:1 電中性方式交換「氯離子（Cl⁻）」與「碳酸氫根離子（HCO₃⁻）」，協助血液運輸 CO₂。<br>💡【考試提醒】若老師在考卷上印 `No ABCD:)` 代表這題要直接手寫回答，請直接寫出：**Cl⁻ (chloride ion) and HCO₃⁻ (bicarbonate ion)**！",
+    optExps: [
+      "【Na⁺ and K⁺（鈉離子與鉀離子）】皆為陽離子（cations），由 Na⁺/K⁺ ATPase 以 3 Na⁺ : 2 K⁺ 比例進行主動交換。",
+      "【Cl⁻ (chloride ion) and HCO₃⁻ (bicarbonate ion)（氯離子與碳酸氫根離子）】正確！在組織微血管中，CO₂ 進入紅血球轉化為 HCO₃⁻，Band 3 將 HCO₃⁻ 運出血漿並同時運入 Cl⁻（1:1 交換）；在肺泡則反向進行。",
+      "【Ca²⁺ and Mg²⁺（鈣離子與鎂離子）】皆為二價陽離子，非 Band 3 陰離子交換蛋白的受質。",
+      "【H⁺ and OH⁻（氫離子與氫氧根離子）】非 Band 3 蛋白交換的離子。"
+    ]
+  },
+  {
+    id: 25,
+    cat: "active",
+    code: "Q25 (溶體與植物液泡的酸化幫浦)",
+    question: "25. Which specific class of ATPases is responsible for pumping protons (H⁺) into lysosomes and plant vacuoles to maintain their characteristically low internal pH?",
+    options: [
+      "P-type ATPase",
+      "V-type ATPase",
+      "F-type ATPase",
+      "ABC-type transporter"
+    ],
+    answer: 1,
+    stemExp: "【題意】哪一類特定的 ATP 酶負責將質子（H⁺）打入溶體（lysosomes）與植物液泡（vacuoles）中，以維持其內部特有的低 pH 值（酸性環境）？<br>【解析】V-type ATPase（Vacuolar-type H⁺-ATPase，液泡型質子幫浦）專門消耗 ATP 將 H⁺ 打入溶體、內體（endosomes）、高基氏體囊泡與植物液泡中，使其內部酸化（催化過程不發生自身磷酸化）。",
+    optExps: [
+      "【P-type ATPase】在催化過程中會發生天冬胺酸（Asp）殘基的可逆自身磷酸化，代表例子有動物質膜上的 Na⁺/K⁺ pump、胃壁細胞 H⁺/K⁺ pump、肌漿網 Ca²⁺ pump（SERCA）與植物質膜 H⁺-ATPase。",
+      "【V-type ATPase（Vacuolar-type ATPase）】正確。「V」即代表 Vacuolar（液泡），結構與 F-type 相似但只負責「水解 ATP 以主動幫浦 H⁺」，維持溶體（pH ~4.5-5.0）與植物液泡的酸性環境。",
+      "【F-type ATPase（F₀F₁ ATP synthase）】位於粒線體內膜、葉綠體類囊體膜與細菌質膜，在生理狀態下主要是利用 H⁺ 順梯度流過的質子動力勢來「合成 ATP（ATP synthase）」。",
+      "【ABC-type transporter（ATP-binding cassette transporter）】具有兩個保守的 ATP 結合盒（NBD）與兩個跨膜區段（TMD），主要負責運輸小分子、脂質、胜肽或排出藥物（如 MDR1、CFTR），而非酸化溶體的質子幫浦。"
+    ]
+  },
+  {
+    id: 26,
+    cat: "active",
+    code: "Q26 (小腸上皮細胞 SGLT 同向運輸的能量來源)",
+    question: "26. Intestinal epithelial cells absorb glucose against its concentration gradient via the Na⁺/glucose symporter (SGLT). What is the direct driving energy source for this process?",
+    options: [
+      "Direct hydrolysis of ATP by the SGLT protein itself",
+      "Potential energy released by Na⁺ moving down its electrochemical gradient",
+      "A proton gradient across the apical plasma membrane",
+      "GTP hydrolysis during glucose entry"
+    ],
+    answer: 1,
+    stemExp: "【題意】小腸上皮細胞透過「鈉-葡萄糖同向運輸蛋白（Na⁺/glucose symporter, SGLT）」逆著濃度梯度吸收葡萄糖。此過程的「直接驅動能量來源」為何？（註：原卷 B 選項印為 Protein energy released by [Na⁺] moving down its electrochemical gradient，實指 Potential energy of Na⁺ gradient）<br>【解析】SGLT 屬於「次級／間接主動運輸（Secondary / Indirect active transport）」，SGLT 本身不會水解 ATP，而是直接利用細胞外高濃度 Na⁺ 順著電化學梯度流入細胞內所釋放的自由能（位能），同時將葡萄糖逆濃度梯度帶入細胞。",
+    optExps: [
+      "【SGLT 蛋白質本身直接水解 ATP】錯誤。SGLT 沒有 ATPase 活性，無法直接水解 ATP（基底側膜上的 Na⁺/K⁺ pump 才會水解 ATP 以維持胞內低 Na⁺ 濃度）。",
+      "【Potential (Protein) energy released by [Na⁺] moving down its electrochemical gradient（Na⁺ 順著其電化學梯度移動所釋放的能量）】正確。動物細胞的次級主動運輸主要以 Na⁺ 電化學梯度作為直接能量來源。",
+      "【頂端質膜上的質子（H⁺）梯度】細菌、真菌與植物常利用 H⁺ 梯度進行次級主動運輸，但動物小腸上皮的 SGLT 是利用「鈉離子（Na⁺）梯度」。",
+      "【葡萄糖進入時的 GTP 水解】GTP 水解主要參與 G 蛋白訊號傳遞、核糖體轉譯或微管動態，不驅動 SGLT。"
+    ]
+  },
+  {
+    id: 27,
+    cat: "active",
+    code: "Q27 (多重抗藥性蛋白 MDR 與 ABC 轉運蛋白)",
+    question: "27. Multi-drug resistance (MDR) transport proteins often cause chemotherapy failure in cancer cells. To which class of transport proteins do MDR proteins belong, and how do they function?",
+    options: [
+      "P-type ATPases that pump drugs into endosomes",
+      "ABC-type ATPases that utilize ATP hydrolysis to pump hydrophobic drugs out of the cell",
+      "V-type ATPases that acidify drugs inside the cytoplasm",
+      "Channel proteins that allow passive efflux of chemotherapeutic agents"
+    ],
+    answer: 1,
+    stemExp: "【題意】多重抗藥性（Multi-drug resistance, MDR，又稱 P-glycoprotein / MDR1）轉運蛋白常導致癌細胞的化學治療失敗。MDR 蛋白屬於哪一類轉運蛋白？其作用機制為何？<br>【解析】MDR 蛋白屬於「ABC 轉運蛋白超家族（ATP-Binding Cassette transporters）」，能利用水解 ATP 獲得的能量，將進入癌細胞內的疏水性化療藥物逆濃度梯度主動打出細胞外，使胞內藥物濃度過低而無法殺死癌細胞。",
+    optExps: [
+      "【將藥物打入內體的 P-type ATPase】錯誤。MDR 不屬於 P-type ATPase，且它是將藥物打出細胞外。",
+      "【ABC-type ATPases that utilize ATP hydrolysis to pump hydrophobic drugs out of the cell（利用 ATP 水解將疏水性藥物打出細胞外的 ABC 型轉運蛋白）】正確。MDR1（ABCB1）是最經典的人類 ABC 外排幫浦（efflux pump）。",
+      "【在細胞質內酸化藥物的 V-type ATPase】錯誤。V-type ATPase 只打 H⁺ 入胞器，不直接排出化療藥物。",
+      "【允許化療藥物被動流出的通道蛋白】錯誤。為了把胞內藥物清空至低於胞外濃度，必須逆梯度消耗 ATP 進行主動運輸，而非被動通道。"
+    ]
+  },
+  {
+    id: 28,
+    cat: "active",
+    code: "Q28 (P-type ATPase 命名由來)",
+    question: "28. Why is the Na⁺/K⁺ (or Ca²⁺) ATPase classified specifically as a \"P-type\" ATPase?",
+    options: [
+      "It is located exclusively in Peroxisomes",
+      "It undergoes reversible autophosphorylation on a specific aspartate residue during its catalytic cycle",
+      "It uses Potassium (K⁺) as its primary energy currency",
+      "It synthesizes ATP using a Proton gradient"
+    ],
+    answer: 1,
+    stemExp: "【題意】為什麼這類 ATP 酶（如 Na⁺/K⁺ ATPase、Ca²⁺ ATPase）被特別歸類為「P-type」ATPase？<br>【解析】「P」代表「Phosphorylation（磷酸化）」。在催化循環中，ATP 水解會將一個磷酸根共價轉移到幫浦蛋白自身的一個特定「天冬胺酸（Aspartate, Asp）殘基」上，形成高能天冬胺酸磷酸中間體，引起構型改變（E1 ↔ E2）以完成離子跨膜運輸。",
+    optExps: [
+      "【只位於過氧化體（Peroxisomes）中】錯誤。P-type ATPase 主要位於質膜與內質網／肌漿網膜上，「P」並非指 Peroxisome。",
+      "【It undergoes reversible autophosphorylation on a specific aspartate residue during its catalytic cycle（在催化循環中，其特定的天冬胺酸殘基會發生可逆的自身磷酸化）】正確。此磷酸化／去磷酸化驅動了 E1 與 E2 兩種構型的轉換。",
+      "【使用鉀離子作為主要能量貨幣】錯誤。細胞的能量貨幣是 ATP，鉀離子是被運輸的受質之一。",
+      "【利用質子梯度合成 ATP】這是粒線體／葉綠體中「F-type ATPase（ATP 合成酶）」的功能。"
+    ]
+  },
+  {
+    id: 29,
+    cat: "fluidity",
+    code: "Q29 (FRAP 光漂白後螢光恢復實驗)",
+    question: "29. In a Fluorescence Recovery After Photobleaching (FRAP) experiment, what does a faster rate of fluorescence recovery in the photobleached area indicate?",
+    options: [
+      "Higher rate of lateral diffusion and higher membrane fluidity",
+      "Lower rate of lateral diffusion and rigid membrane structure",
+      "High rate of transverse flip-flop movement across monolayers",
+      "Complete destruction of the lipid bilayer integrity"
+    ],
+    answer: 0,
+    stemExp: "【題意】在「光漂白後螢光恢復技術（FRAP）」實驗中，若雷射漂白區域的螢光恢復速率越快，代表什麼意義？<br>【解析】FRAP 用來定量測定膜脂質或膜蛋白在二維平面上的移動速率（擴散係數 diffusion coefficient）。漂白區螢光恢復越快，代表周圍未漂白的螢光分子透過「側向擴散（lateral diffusion）」流入該區的速度越快，亦即「膜的流動性越高（higher membrane fluidity）」。",
+    optExps: [
+      "【Higher rate of lateral diffusion and higher membrane fluidity（較高的側向擴散速率與較高的膜流動性）】正確。恢復曲線斜率越大，代表擴散係數越高、流動性越佳。",
+      "【較低的側向擴散速率與僵硬的膜結構】若膜結構僵硬或蛋白質被細胞骨架錨定，螢光恢復速率會極慢甚至不恢復（mobile fraction 低）。",
+      "【跨單層膜的橫向翻轉（flip-flop）速率很高】FRAP 觀察的是同一膜平面上的二維「側向擴散（lateral diffusion）」，而非上下的 flip-flop。",
+      "【脂質雙層完整性完全被破壞】FRAP 的雷射僅使螢光團（fluorophore）失去螢光活性（photobleaching），並未破壞細胞膜的結構完整性。"
+    ]
+  },
+  {
+    id: 30,
+    cat: "structure",
+    code: "Q30 (脂筏 Lipid rafts 組成成分)",
+    question: "30. Membrane lipid rafts (microdomains) are specialized, highly ordered regions within the plasma membrane. Which membrane components are characteristically enriched in these rafts?",
+    options: [
+      "Saturated fatty acids, cholesterol, and sphingolipids",
+      "Unsaturated fatty acids, glycerol, and triacylglycerols",
+      "Phosphatidylserine and short-chain fatty acids",
+      "Free carbohydrates and peripheral cytosolic enzymes"
+    ],
+    answer: 0,
+    stemExp: "【題意】細胞膜上的「脂筏（lipid rafts / microdomains）」是質膜內特化且高度有序（highly ordered）的微區。這些脂筏特徵性地富含哪些膜成分？<br>【解析】脂筏富含「神經鞘脂（sphingolipids，含神經鞘磷脂與醣神經鞘脂，具有長而飽和的脂肪酸鏈）」、「飽和脂肪酸（saturated fatty acids）」與「膽固醇（cholesterol）」。它們排列緊密、膜厚度較厚、流動性較低（呈液態有序相 Lo），常聚集特定訊號傳遞蛋白與 GPI-錨定蛋白。",
+    optExps: [
+      "【Saturated fatty acids, cholesterol, and sphingolipids（飽和脂肪酸、膽固醇與神經鞘脂）】正確。神經鞘脂的長鏈飽和尾端與膽固醇的剛性固醇環能緊密嵌合，形成抗低溫非離子界面活性劑（如 Triton X-100）萃取的微區。",
+      "【不飽和脂肪酸、甘油與三酸甘油酯】不飽和脂肪酸具有彎折，會排斥緊密排列的脂筏而分布於周圍的液態無序區（Ld）；三酸甘油酯則不存在於雙層膜中。",
+      "【磷脂醯絲胺酸（PS）與短鏈脂肪酸】短鏈脂肪酸會提高流動性，無法形成高度有序且較厚的脂筏。",
+      "【游離碳水化合物與胞質周邊酵素】非構成膜內脂筏雙層結構的脂質主體。"
+    ]
+  },
+  {
+    id: 31,
+    cat: "fluidity",
+    code: "Q31 (變溫生物的同黏度適應) ★原卷缺B~D已補齊",
+    question: "31. When poikilothermic organisms or bacteria are transferred from a warm environment to a cold environment, how do they alter their membrane lipid composition to maintain homeoviscous adaptation? (※註：原卷只印到 A，此處已補齊完整四選項)",
+    options: [
+      "Increase fatty acid chain length and saturation",
+      "Increase the proportion of unsaturated fatty acids and decrease hydrocarbon chain length",
+      "Convert all phospholipids into rigid triglycerides",
+      "Completely stop synthesizing fatty acids and membrane proteins"
+    ],
+    answer: 1,
+    stemExp: "【題意】當變溫生物（poikilothermic organisms，如魚類、植物）或細菌從溫暖環境被轉移到「寒冷環境（cold environment）」時，它們會如何改變細胞膜的脂質組成以維持「同黏度適應（homeoviscous adaptation）」？<br>【解析】低溫會使細胞膜趨向凝固僵硬（流動性下降）。為了在低溫下維持正常的膜流動性（黏度恆定），細胞會啟動「去飽和酶（desaturases）」，**增加不飽和脂肪酸（cis-unsaturated fatty acids）的比例**並**縮短脂肪酸碳鏈長度**，以降低相轉移溫度（Tm），防止細胞膜結凍硬化。",
+    optExps: [
+      "【Increase fatty acid chain length and saturation（增加脂肪酸鏈長與飽和度）】錯誤！這是在「高溫（warm/hot）環境」下的適應方式（為了防止膜在熱環境下過度流動融化）；若在寒冷環境這樣做，細胞膜會直接硬化凝固。",
+      "【Increase the proportion of unsaturated fatty acids and decrease hydrocarbon chain length（增加不飽和脂肪酸比例並縮短碳氫鏈長度）】正確！在寒冷環境下，增加順式雙鍵（引入 kinks）與縮短鏈長能減弱分子間凡德瓦力，提高膜流動性以抵抗低溫僵硬。",
+      "【將所有磷脂轉化為堅硬的三酸甘油酯】錯誤。三酸甘油酯無法形成脂質雙層。",
+      "【完全停止合成脂肪酸與膜蛋白】錯誤。細胞必須積極重塑（remodel）膜脂質組成才能在低溫下存活。"
+    ]
+  }
+];
+
+let userAnswers = {};
+let currentFilter = 'all';
+let comboCount = 0;
+let allExpanded = false;
+
+function renderQuiz() {
+  const listEl = document.getElementById('quiz-list');
+  listEl.innerHTML = '';
+
+  const filtered = questionsData.filter(q => {
+    if (currentFilter === 'all') return true;
+    if (currentFilter === 'wrong') {
+      return userAnswers[q.id] !== undefined && userAnswers[q.id] !== q.answer;
+    }
+    return q.cat === currentFilter;
+  });
+
+  if (filtered.length === 0) {
+    listEl.innerHTML = `<div class="empty-msg">🎉 目前此分類沒有題目（或您還沒有答錯任何題目）！</div>`;
+    return;
+  }
+
+  const labels = ['A', 'B', 'C', 'D'];
+
+  filtered.forEach(q => {
+    const answered = userAnswers[q.id] !== undefined;
+    const userChoice = userAnswers[q.id];
+    const isCorrect = userChoice === q.answer;
+
+    const card = document.createElement('div');
+    card.className = 'q-card';
+
+    let statusHtml = '';
+    if (answered) {
+      statusHtml = isCorrect
+        ? `<span class="q-status" style="color:var(--success)">✅ Correct!</span>`
+        : `<span class="q-status" style="color:var(--danger)">❌ Wrong（正確答案：${labels[q.answer]}）</span>`;
+    } else {
+      statusHtml = `<span class="q-status" style="color:#94a3b8">尚未作答</span>`;
+    }
+
+    let optionsHtml = q.options.map((optText, idx) => {
+      let btnClass = 'opt-btn';
+      if (answered) {
+        if (idx === q.answer) btnClass += ' correct';
+        else if (idx === userChoice && userChoice !== q.answer) btnClass += ' wrong';
+      }
+      return `
+        <button class="${btnClass}" ${answered ? 'disabled' : ''} onclick="selectOption(${q.id}, ${idx})">
+          <span class="opt-label">${labels[idx]}</span>
+          <span>${optText}</span>
+        </button>
+      `;
+    }).join('');
+
+    let optExpsHtml = q.optExps.map((expText, idx) => {
+      const isRightOpt = idx === q.answer;
+      const itemClass = isRightOpt ? 'opt-exp-item is-correct-opt' : 'opt-exp-item is-wrong-opt';
+      const tagClass = isRightOpt ? 'opt-tag tag-correct' : 'opt-tag tag-wrong';
+      const tagLabel = isRightOpt ? `(${labels[idx]}) 正確選項` : `(${labels[idx]}) 誘答選項解析`;
+      return `
+        <div class="${itemClass}">
+          <span class="${tagClass}">${tagLabel}</span>
+          <span>${expText}</span>
+        </div>
+      `;
+    }).join('');
+
+    const showExpClass = (answered || allExpanded) ? 'exp-box show' : 'exp-box';
+
+    card.innerHTML = `
+      <div class="q-header">
+        <span class="q-badge">${q.code}</span>
+        ${statusHtml}
+      </div>
+      <div class="q-title">${q.question}</div>
+      <div class="options-list">
+        ${optionsHtml}
+      </div>
+      <div class="${showExpClass}">
+        <div class="exp-header">💡 答案與四個選項完整解析（正確答案：${labels[q.answer]}）</div>
+        <div class="stem-analysis">
+          ${q.stemExp}
+        </div>
+        <div class="opt-exp-title">🔍 各選項生物學概念與對錯原因：</div>
+        <div class="opt-exp-list">
+          ${optExpsHtml}
+        </div>
+      </div>
+    `;
+
+    listEl.appendChild(card);
+  });
+}
+
+function selectOption(qId, optIdx) {
+  if (userAnswers[qId] !== undefined) return;
+  userAnswers[qId] = optIdx;
+
+  const q = questionsData.find(item => item.id === qId);
+  if (optIdx === q.answer) {
+    comboCount++;
+  } else {
+    comboCount = 0;
+  }
+
+  updateScoreboard();
+  renderQuiz();
+}
+
+function updateScoreboard() {
+  const total = questionsData.length;
+  const answeredKeys = Object.keys(userAnswers);
+  const answeredCount = answeredKeys.length;
+  let correctCount = 0;
+
+  answeredKeys.forEach(k => {
+    const qId = parseInt(k);
+    const q = questionsData.find(item => item.id === qId);
+    if (userAnswers[qId] === q.answer) correctCount++;
+  });
+
+  const score = Math.round((correctCount / total) * 100);
+  const accuracy = answeredCount > 0 ? Math.round((correctCount / answeredCount) * 100) : 0;
+  const progressPercent = Math.round((answeredCount / total) * 100);
+
+  document.getElementById('stat-progress').textContent = `已答：${answeredCount} / ${total}`;
+  document.getElementById('stat-score').textContent = `得分：${score} 分`;
+  document.getElementById('stat-accuracy').textContent = `正確率：${accuracy}%`;
+  document.getElementById('stat-combo').textContent = `🔥 連對：${comboCount}`;
+  document.getElementById('progress-bar').style.width = `${progressPercent}%`;
+}
+
+function setFilter(filterKey, e) {
+  currentFilter = filterKey;
+  const buttons = document.querySelectorAll('#filter-tabs .tab-btn');
+  buttons.forEach(btn => btn.classList.remove('active'));
+  if (e && e.target) e.target.classList.add('active');
+  renderQuiz();
+}
+
+function toggleAllExplanations() {
+  allExpanded = !allExpanded;
+  renderQuiz();
+}
+
+function resetGame() {
+  if (!confirm('確定要清空所有作答紀錄並重新開始嗎？')) return;
+  userAnswers = {};
+  comboCount = 0;
+  allExpanded = false;
+  updateScoreboard();
+  renderQuiz();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+renderQuiz();
+updateScoreboard();
+</script>
+
+</body>
+</html>
